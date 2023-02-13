@@ -1,10 +1,43 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Kata-PP-2.3.1</title>
+  <style>table th, table td {
+    padding: 15px;
+  }</style>
 </head>
-<body>
-$END$
+
+<body style="background-color: linen">
+<div th:align="center">
+  <h1>Users</h1>
+  <br/>
+  <h4>You have a list of users.</h4>
+  <h4>If you want to add, update or delete a user select the appropriate button below.</h4>
+</div>
+<div th:switch="${users}" th:align="center">
+  <h2 th:case="null">No users found</h2>
+  <div th:case="*">
+    <table th:border="0">
+      <tr>
+        <th>Name</th>
+        <th>Last name</th>
+        <th>Age</th>
+        <th>Actions</th>
+      </tr>
+
+      <tr th:each="us : ${users}" style="background-color: ivory">
+        <td th:utext="${us.name}">Name</td>
+        <td th:utext="${us.lastName}">LastName</td>
+        <td th:utext="${us.age}" th:align="center">Age</td>
+        <td><a th:href="@{user-update/{id}(id=${us.id})}">Edit</a></td>
+        <td><a th:href="@{user-delete/{id}(id=${us.id})}">Delete</a></td>
+      </tr>
+    </table>
+  </div>
+  <p><a href="/user-create">Create user</a></p>
+</div>
 </body>
 </html>
